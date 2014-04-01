@@ -11,12 +11,7 @@ node default {
         include_src => false
     }
 
-    package { 'raring-kernel':
-        name => 'linux-image-generic-lts-raring',
-        ensure => present
-    }
-
     package { 'lxc-docker':
-        require => [apt::source["docker"], Package["raring-kernel"]]
+        require => [Apt::Source["docker"]]
     }
 }
