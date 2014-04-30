@@ -5,23 +5,19 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    # Every Vagrant virtual environment requires a box to build off of.
+    # Use Phusion's Ubuntu 12.04 box with support for Docker
     config.vm.box = "phusion-open-ubuntu-12.04-amd64"
     config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-12.04-amd64-vbox.box"
-    
+    # Set hostname
     config.vm.hostname = "vagrant-precise64"
 
-    # Provider-specific configuration so you can fine-tune various
-    # backing providers for Vagrant. These expose provider-specific options.
-    #
+    # Configure the VirtualBox Provider
     config.vm.provider :virtualbox do |vb|
-        # Use VBoxManage to customize the VM. For example to change memory:
+        # Give the VM 1GB of RAM
         vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
-    # Enable provisioning with Puppet stand alone.  Puppet manifests
-    # are contained in a directory path relative to this Vagrantfile.
-    # 
+    # Provisioning with Puppet Standalone 
     config.vm.provision :puppet do |puppet|
         puppet.hiera_config_path = "conf/hiera.yaml"
         puppet.manifests_path = "manifests"
