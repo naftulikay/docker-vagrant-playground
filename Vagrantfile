@@ -7,10 +7,9 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Every Vagrant virtual environment requires a box to build off of.
     config.vm.box = "phusion-open-ubuntu-12.04-amd64"
-
-    # The url from where the 'config.vm.box' box will be fetched if it
-    # doesn't already exist on the user's system.
-    config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.box"
+    config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-12.04-amd64-vbox.box"
+    
+    config.vm.hostname = "vagrant-precise64"
 
     # Provider-specific configuration so you can fine-tune various
     # backing providers for Vagrant. These expose provider-specific options.
@@ -26,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision :puppet do |puppet|
         puppet.hiera_config_path = "conf/hiera.yaml"
         puppet.manifests_path = "manifests"
-        puppet.manifest_file  = "docker.pp"
+        puppet.manifest_file  = "vagrant.pp"
         puppet.module_path = "modules"
     end
 end
